@@ -11,7 +11,16 @@
       yum:
         name: httpd
         state: present
-
+    
+    - name: "Copying httpd.conf.tmpl as /etc/httpd/conf/httpd.conf"
+      template:
+        src: httpd.conf.tmpl
+        dest: /etc/httpd/conf/httpd.conf
+      register: config_status
+    
+    
+    - debug:
+        var: config_status
     - name: "Restarting/Enabling Apache"
       service:
         name: httpd
